@@ -14,7 +14,7 @@ const pool = new Pool({
 });
 
 // API: ดึงข้อมูลทั้งหมด
-app.get('/users', async (req, res) => {
+app.get('/', async (req, res) => {
   const result = await pool.query('SELECT * FROM users');
   res.json(result.rows);
 });
