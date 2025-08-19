@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 // API: ดึง users ทั้งหมด
 app.get('/users', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM test');
+    const result = await pool.query('SELECT * FROM users');
     res.json(result.rows);
   } catch (err) {
     console.error(err);
@@ -34,7 +34,7 @@ app.get('/users', async (req, res) => {
 app.post('/users', async (req, res) => {
   try {
     const { name, email } = req.body;
-    await pool.query('INSERT INTO test (name, email) VALUES ($1, $2)', [name, email]);
+    await pool.query('INSERT INTO users (name, email) VALUES ($1, $2)', [name, email]);
     res.status(201).json({ message: "User created" });
   } catch (err) {
     console.error(err);
@@ -47,7 +47,7 @@ app.put('/users/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const { name, email } = req.body;
-    await pool.query('UPDATE test SET name = $1, email = $2 WHERE id = $3', [name, email, id]);
+    await pool.query('UPDATE users SET name = $1, email = $2 WHERE id = $3', [name, email, id]);
     res.json({ message: "User updated" });
   } catch (err) {
     console.error(err);
@@ -59,7 +59,7 @@ app.put('/users/:id', async (req, res) => {
 app.delete('/users/:id', async (req, res) => {
   try {
     const { id } = req.params;
-    await pool.query('DELETE FROM test WHERE id = $1', [id]);
+    await pool.query('DELETE FROM users WHERE id = $1', [id]);
     res.json({ message: "User deleted" });
   } catch (err) {
     console.error(err);
